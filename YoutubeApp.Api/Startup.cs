@@ -38,6 +38,8 @@ namespace YoutubeApp.Api
 
             var publisher = CreateMeABus.WithLogging(_loggerFactory)
                 .InRegion(RegionEndpoint.APSoutheast2.SystemName)
+                .WithNamingStrategy(
+                    () => new Naming(Configuration["Env"]))
                 .ConfigurePublisherWith(
                     c =>
                     {
@@ -45,11 +47,13 @@ namespace YoutubeApp.Api
                         c.PublishFailureBackoffMilliseconds = 50;
                     })
                 .WithSnsMessagePublisher<CreateSongCommand>(
-                    c => { c.HandleException = (e) =>
-                        {
-                            // log exception
-                            return false;
-                        }; 
+                    c =>
+                    {
+                        c.HandleException = (e) =>
+                                             {
+                                                    // log exception
+                                                    return false;
+                                             };
                     });
 
             services.AddSingleton(publisher);
