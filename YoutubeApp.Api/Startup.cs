@@ -34,7 +34,7 @@ namespace YoutubeApp.Api
         public void ConfigureServices(IServiceCollection services)
         {
             CreateMeABus.DefaultClientFactory = () =>
-                new DefaultAwsClientFactory(new BasicAWSCredentials("AKIAJONLG4V3AOB42JJQ", "9v50jmdLXEQDCbeG/F4L5yKu5ouPQ0+3YoymwXP2"));
+                new DefaultAwsClientFactory(new BasicAWSCredentials("changed", "changed"));
 
             var publisher = CreateMeABus.WithLogging(_loggerFactory)
                 .InRegion(RegionEndpoint.APSoutheast2.SystemName)
